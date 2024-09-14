@@ -1,41 +1,34 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import './App.css';
-import User from './Components/User';
+import User from './Components/User/UserComponent';
 import Bot from './Components/Bot';
+import Screen from './Components/Screen/ScreenComponent';
 
 function App() {
-  const [userInput, setUserInput] = useState("");
-  const [botOutput, setBotOutput] = useState("");
+  const [message, setMessage] = useState("");
   const [history, setHistory] = useState([]);
 
-  // Handle the bot's result after processing
-  const handleBotResponse = (response) => {
-    setBotOutput(response);  // Update bot output
-    setHistory([...history, { user: userInput, bot: response }]);  // Update history
+  // Handle User Message
+  const handleUserMessage = (userMessage) => {
+    if (userMessage.trim()) {
+      setHistory([...history, { sender: 'user', message: userMessage }]);
+      setMessage(userMessage);
+    }
+  };
+
+  // Handle Bot Response
+  const handleBotResponse = (botResponse) => {
+    setHistory([...history, { sender: 'bot', botName: botResponse.botName, message: botResponse.botResponse }]);
   };
 
   return (
-    <>
-      <div>
-        <User setInput={setUserInput} />
-        <Bot input={userInput} onResponse={handleBotResponse} />
-        <div>
-          <strong>Current User Input:</strong> {userInput}
-        </div>
-        <div>
-          <strong>Bot Output:</strong> {botOutput}
-        </div>
-        <div>
-          <h3>History</h3>
-          {history.map((entry, index) => (
-            <div key={index}>
-              <strong>User:</strong> {entry.user} <br />
-              <strong>Bot:</strong> {entry.bot}
-            </div>
-          ))}
-        </div>
+    <div className="chat-container">
+      <Screen history={history} />
+      <div className="input-container">
+        <User handleUserMessage={handleUserMessage} />
+        <Bot message={message} handleBotResponse={handleBotResponse} />
       </div>
-    </>
+    </div>
   );
 }
 

@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 
-function Bot({ input, onResponse }) {
-  // Available bot actions
+function Bot({ message, handleBotResponse }) {
   const actions = [
     'COUNT_WORDS',
     'COUNT_VOWELS_CONSONANTS',
@@ -13,58 +12,62 @@ function Bot({ input, onResponse }) {
     'REMOVE_CONSONANTS'
   ];
 
-  // Randomly select an action and perform it
+  const botName = [
+    'Kalu',
+    'Lambu',
+    'Bukhad',
+    'Jaanu',
+    'Jhamkudi',
+  ]
+
   const performAction = () => {
     const randomAction = actions[Math.floor(Math.random() * actions.length)];
+    const name = botName[Math.floor(Math.random() * actions.length)];
     let response = "";
-    
+
     switch (randomAction) {
       case 'COUNT_WORDS':
-        response = `Word Count: ${countWords(input)}`;
+        response = `Word Count: ${countWords(message)}`;
         break;
       case 'COUNT_VOWELS_CONSONANTS':
-        const { vowels, consonants } = countVowelsAndConsonants(input);
+        const { vowels, consonants } = countVowelsAndConsonants(message);
         response = `Vowels: ${vowels}, Consonants: ${consonants}`;
         break;
       case 'UPPERCASE':
-        response = input.toUpperCase();
+        response = message.toUpperCase();
         break;
       case 'LOWERCASE':
-        response = input.toLowerCase();
+        response = message.toLowerCase();
         break;
       case 'CAPITALIZE_WORDS':
-        response = capitalizeWords(input);
+        response = capitalizeWords(message);
         break;
       case 'COUNT_CHARACTERS':
-        response = `Character Count: ${input.length}`;
+        response = `Character Count: ${message.length}`;
         break;
       case 'REMOVE_VOWELS':
-        response = removeVowels(input);
+        response = removeVowels(message);
         break;
       case 'REMOVE_CONSONANTS':
-        response = removeConsonants(input);
+        response = removeConsonants(message);
         break;
       default:
         response = "Unknown action!";
     }
+    const obj = {botName:name, botResponse:response}
 
-    // Send the response back to App component
-    onResponse(response);
+    handleBotResponse(obj);
   };
 
-  // Helper functions for the bot's operations
   const countWords = (text) => text.trim() === "" ? 0 : text.trim().split(/\s+/).length;
+
 
   const countVowelsAndConsonants = (text) => {
     let vowelsCount = 0, consonantsCount = 0;
     const vowels = 'aeiouAEIOU';
-
     for (let char of text) {
-      if (vowels.includes(char)) {
-        vowelsCount++;
-      } else if (/[a-zA-Z]/.test(char)) {
-        consonantsCount++;
-      }
+      if (vowels.includes(char)) vowelsCount++;
+      else if (/[a-zA-Z]/.test(char)) consonantsCount++;
     }
     return { vowels: vowelsCount, consonants: consonantsCount };
   };
@@ -73,14 +76,13 @@ function Bot({ input, onResponse }) {
   const removeVowels = (text) => text.replace(/[aeiouAEIOU]/g, "");
   const removeConsonants = (text) => text.replace(/[^aeiouAEIOU\s]/g, "");
 
-  // Trigger the bot action when input changes
   useEffect(() => {
-    if (input) {
-      performAction();  // Perform the bot action
+    if (message) {
+      performAction();
     }
-  }, [input]);
+  }, [message]);
 
-  return null;  // Bot component doesn't need to render anything
+  return null;
 }
 
 export default Bot;
