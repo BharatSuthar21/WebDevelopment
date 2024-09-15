@@ -1,25 +1,13 @@
 import React, { useEffect, useRef } from 'react';
 import './ScreenComponent.css';
 
-function Screen({ history, setHistory }) {
+function Screen({ history }) {
   const chatEndRef = useRef(null);
 
   // Automatically scroll to the bottom when a new message is added
   useEffect(() => {
     chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [history]);
-
-  // Initialize with the first bot message when history is empty
-  useEffect(() => {
-    if (history.length === 0) {
-      const initialMessage = {
-        sender: 'bot',
-        botName: 'YoungBot',
-        message: 'Hi, how can I help you?',
-      };
-      setHistory([initialMessage]);  // Add the initial bot message to the history
-    }
-  }, [history, setHistory]);
 
   return (
     <div>
