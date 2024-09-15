@@ -5,7 +5,7 @@ import Bot from './Components/Bot';
 import Screen from './Components/Screen/ScreenComponent';
 
 function App() {
-  const [message, setMessage] = useState("");
+  const [message, setMessage] = useState("");  // Track user input
   const [history, setHistory] = useState([{
     sender: 'bot',
     botName: 'YoungBot',
@@ -15,14 +15,15 @@ function App() {
   // Handle User Message
   const handleUserMessage = (userMessage) => {
     if (userMessage.trim()) {
-      setHistory([...history, { sender: 'user', message: userMessage }]);
-      setMessage(userMessage);
+      setHistory((prevHistory) => [...prevHistory, { sender: 'user', message: userMessage }]);
+      setMessage(userMessage);  // Set message to trigger Bot response
     }
   };
 
   // Handle Bot Response
   const handleBotResponse = (botResponse) => {
-    setHistory([...history, { sender: 'bot', botName: botResponse.botName, message: botResponse.botResponse }]);
+    setHistory((prevHistory) => [...prevHistory, { sender: 'bot', botName: botResponse.botName, message: botResponse.botResponse }]);
+    setMessage("");  // Clear message after bot responds to avoid re-triggering
   };
 
   return (
@@ -37,7 +38,6 @@ function App() {
           </div>
         </div>
     </div>
-    
   );
 }
 

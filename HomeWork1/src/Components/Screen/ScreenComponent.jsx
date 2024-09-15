@@ -34,4 +34,3 @@ function Screen({ history }) {
 }
 
 export default Screen;
-
