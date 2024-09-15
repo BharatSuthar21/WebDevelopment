@@ -6,7 +6,11 @@ import Screen from './Components/Screen/ScreenComponent';
 
 function App() {
   const [message, setMessage] = useState("");
-  const [history, setHistory] = useState([]);
+  const [history, setHistory] = useState([{
+    sender: 'bot',
+    botName: 'YoungBot',
+    message: 'Hi, how can I help you?',
+  }]);
 
   // Handle User Message
   const handleUserMessage = (userMessage) => {
@@ -22,13 +26,18 @@ function App() {
   };
 
   return (
-    <div className="chat-container">
-      <Screen history={history} />
-      <div className="input-container">
-        <User handleUserMessage={handleUserMessage} />
-        <Bot message={message} handleBotResponse={handleBotResponse} />
-      </div>
+    <div>
+        <div className="chat-container">
+          <Screen history={history} />
+          <div>
+            <div className="input-container">
+              <User handleUserMessage={handleUserMessage} />
+              <Bot message={message} handleBotResponse={handleBotResponse} />
+            </div>
+          </div>
+        </div>
     </div>
+    
   );
 }
 
