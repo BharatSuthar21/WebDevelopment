@@ -95,11 +95,12 @@ function Bot({ message, handleBotResponse }) {
         response = "Unknown action!";
         transformation = 'Unknown Transformation';
     }
-    
+
     const obj = { botName: name, botResponse: `Transformation: ${transformation}\nResponse: ${response}` };
     handleBotResponse(obj);
   };
 
+  // Helper functions for different actions
   const countWords = (text) => text.trim() === "" ? 0 : text.trim().split(/\s+/).length;
 
   const countVowelsAndConsonants = (text) => {
@@ -127,7 +128,7 @@ function Bot({ message, handleBotResponse }) {
   };
 
   const reverseText = (text) => text.split('').reverse().join('');
-  
+
   const jumbleWords = (text) => text.split(' ').sort(() => 0.5 - Math.random()).join(' ');
 
   const capitalizeWords = (text) => text.replace(/\b\w/g, char => char.toUpperCase());
