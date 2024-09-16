@@ -1,55 +1,50 @@
 .user-form {
-    display: flex;
-    align-items: flex-start;
-    flex-grow: 1;
-  }
-  
-.submit-button {
-    margin-top: 10px;
-    padding: 8px 16px;
-    background-color: #007BFF;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
+  display: flex;
+  align-items: flex-end; /* Align input field at the bottom */
+  padding: 10px;
+  border-top: 1px solid #e6e6e6;
+  background-color: #f8f9fa;
+  width: 100%;
 }
-  
-.submit-button:hover {
-    background-color: #0056b3;
-}
-  
-  
-.input-field {
-    resize: none;
-    overflow-y: auto;
-    flex-grow: 1;
-    padding: 12px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    font-size: 16px;
-    margin-right: 10px;
-    transition: border 0.3s;
-}
-  
-.input-field:focus {
-    border-color: #007bff;
-    outline: none;
-}
-  
-  .submit-button {
-    padding: 12px;
-    border: none;
-    background-color: #007bff;
-    color: white;
-    border-radius: 8px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-  }
-  
-  .submit-button:hover {
-    background-color: #0056b3;
-  }
-  
 
-  
+.input-field {
+  resize: none;
+  flex-grow: 1;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 12px;
+  font-size: 16px;
+  margin-right: 10px;
+  transition: border 0.3s ease, height 0.2s ease;
+  min-height: 40px;      /* Minimum height */
+  max-height: 120px;     /* Maximum height */
+  overflow-y: auto;      /* Scroll when content exceeds max-height */
+  width: auto;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column-reverse; /* This makes the input expand upwards */
+}
+
+.input-field::-webkit-scrollbar {
+  width: 8px;
+}
+
+.input-field::-webkit-scrollbar-thumb {
+  background-color: #ccc;
+  border-radius: 4px;
+}
+
+.submit-button {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.submit-button:hover {
+  background-color: #0056b3;
+}
