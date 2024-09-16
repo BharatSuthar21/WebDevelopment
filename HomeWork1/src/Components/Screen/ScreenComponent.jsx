@@ -10,7 +10,6 @@ function Screen({ history }) {
   }, [history]);
 
   return (
-    <div>
       <div className="screen">
         <div className="chat-history">
           {history.map((item, index) => (
@@ -29,7 +28,6 @@ function Screen({ history }) {
           <div ref={chatEndRef} />
         </div>
       </div>
-    </div>
   );
 }
 
