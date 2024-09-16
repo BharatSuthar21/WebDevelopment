@@ -27,7 +27,6 @@ function App() {
   };
 
   return (
-    <div>
         <div className="chat-container">
           <Screen history={history} />
           <div>
@@ -37,7 +36,6 @@ function App() {
             </div>
           </div>
         </div>
-    </div>
   );
 }
 

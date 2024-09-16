@@ -1,13 +1,11 @@
 /* index.css */
 
-#root {
 
-  background-color: transparent;
-}
 
 body {
-  margin: 0;
   font-family: 'Inter', sans-serif;
+  background: linear-gradient(135deg, #030404, #FFFFFF);
+
 }
 
 h3 {
