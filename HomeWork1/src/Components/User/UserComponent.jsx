@@ -5,6 +5,7 @@ function UserComponent({ handleUserMessage }) {
   const [inputValue, setInputValue] = useState('');
   const textareaRef = useRef(null);
 
+  // Handle message submission
   const handleSubmit = (e) => {
     e.preventDefault();
     if (isValidMessage(inputValue)) {
@@ -16,6 +17,7 @@ function UserComponent({ handleUserMessage }) {
 
   const isValidMessage = (message) => message.trim() !== '';
 
+  // Handle Enter key to submit the message without clearing the chat history
   const handleKeyDown = (e) => {
     if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault();
