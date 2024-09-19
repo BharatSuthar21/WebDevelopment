@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
-
 function Sidebar({ onBotSelect, bots }) {
+
   const [darkMode, setDarkMode] = useState(false);
 
   const toggleDarkMode = () => {
