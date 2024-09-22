@@ -1,25 +1,30 @@
 import React, { useState, useEffect, useRef } from 'react';
+import user from '../assets/Images/user.jpeg'
+import botImage from '../assets/Images/images.png'
 
 function Chat({ selectedBotFunctionality }) {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState('');
   const messagesEndRef = useRef(null);
 
+  // Function to generate a bot response based on selected functionality
   const performAction = (text) => {
     let response = '';
 
     if (selectedBotFunctionality === 'RANDOM') {
-      const functionalities = ['COUNT_VOWELS', 'MOST_FREQUENT_LETTER', 'UPPERCASE',
+      const functionalities = [
+        'COUNT_VOWELS', 'MOST_FREQUENT_LETTER', 'UPPERCASE',
         'SHUFFLE_CHARACTERS_IN_WORDS', 'COUNT_VOWELS_CONSONANTS', 'REVERSE_TEXT',
-        'JUMBLE_WORDS', 'COUNT_CHARACTERS', 'REPEAT_WORDS_TWICE', 'REPLACE_SPACES_WITH_UNDERSCORES'];
+        'JUMBLE_WORDS', 'COUNT_CHARACTERS', 'REPEAT_WORDS_TWICE', 'REPLACE_SPACES_WITH_UNDERSCORES'
+      ];
       const randomFunctionality = functionalities[Math.floor(Math.random() * functionalities.length)];
-      console.log('Random functionality selected:', randomFunctionality); // for debugging
       return performActionBasedOnSelection(randomFunctionality, text);
     }
 
     return performActionBasedOnSelection(selectedBotFunctionality, text);
   };
 
+  // Action logic based on selected functionality
   const performActionBasedOnSelection = (functionality, text) => {
     switch (functionality) {
       case 'COUNT_VOWELS':
@@ -29,48 +34,51 @@ function Chat({ selectedBotFunctionality }) {
       case 'UPPERCASE':
         return `Given text in uppercase: ${text.toUpperCase()}`;
       case 'SHUFFLE_CHARACTERS_IN_WORDS':
-        return `Shuffle characters of word: ${shuffleCharactersInWords(text)}`;
+        return `Shuffled characters in words: ${shuffleCharactersInWords(text)}`;
       case 'COUNT_VOWELS_CONSONANTS':
         const { vowels, consonants } = countVowelsAndConsonants(text);
-        return `No of Vowels: ${vowels}, No of Consonants: ${consonants}`;
+        return `Vowels: ${vowels}, Consonants: ${consonants}`;
       case 'REVERSE_TEXT':
-        return `Reverse text: ${reverseText(text)}`;
+        return `Reversed text: ${reverseText(text)}`;
       case 'JUMBLE_WORDS':
-        return `Jumbling Words: ${jumbleWords(text)}`;
+        return `Jumbled words: ${jumbleWords(text)}`;
       case 'COUNT_CHARACTERS':
-        return `Character Count: ${text.length}`;
+        return `Character count: ${text.length}`;
       case 'REPEAT_WORDS_TWICE':
-        return `Repeating Words Twice: ${repeatWordsTwice(text)}`;
+        return `Words repeated: ${repeatWordsTwice(text)}`;
       case 'REPLACE_SPACES_WITH_UNDERSCORES':
-        return `Replacing Spaces with Underscores: ${replaceSpacesWithUnderscores(text)}`;
+        return `Spaces replaced with underscores: ${replaceSpacesWithUnderscores(text)}`;
       default:
-        return 'Please select the bot!';
+        return 'Please select a bot functionality!';
     }
   };
 
+  // Send user message and bot response
   const handleSend = () => {
     if (input.trim()) {
+      // Add user message to state
       const newMessage = {
         id: messages.length + 1,
         text: input,
         time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-        sender: 'sent',
+        sender: 'user',
       };
 
-      setMessages([...messages, newMessage]);
+      setMessages((prevMessages) => [...prevMessages, newMessage]);
 
+      // Add bot response after a delay
       setTimeout(() => {
         const botResponse = performAction(input);
         const botMessage = {
           id: messages.length + 2,
           text: botResponse,
           time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-          sender: 'received',
+          sender: 'bot',
         };
-        setMessages(prevMessages => [...prevMessages, botMessage]);
-      }, 1000);
+        setMessages((prevMessages) => [...prevMessages, botMessage]);
+      }, 1000); // 1-second delay for bot response
 
-      setInput('');
+      setInput(''); // Clear input
     }
   };
 
@@ -80,6 +88,7 @@ function Chat({ selectedBotFunctionality }) {
     }
   };
 
+  // Scroll to bottom of chat after messages update
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
@@ -88,6 +97,12 @@ function Chat({ selectedBotFunctionality }) {
     scrollToBottom();
   }, [messages]);
 
+  // Reset messages when selectedBotFunctionality changes
+  useEffect(() => {
+    // Clear the chat history when the bot functionality changes
+    setMessages([]);
+  }, [selectedBotFunctionality]);
+
   return (
     <div className="chat">
       <div className="header">
@@ -95,10 +110,22 @@ function Chat({ selectedBotFunctionality }) {
       </div>
       <div className="messages">
         {messages.map((message) => (
-          <div className={`message ${message.sender}`} key={message.id}>
-            <div className="text">
-              {message.text}
-              <div className="time">{message.time}</div>
+          <div key={message.id} className={`message-container ${message.sender}`}>
+            <div className="message-content">
+              <img 
+                src={message.sender === 'user' ? user : botImage} 
+                alt={message.sender} 
+                className="avatar" 
+              />
+              <div>
+                <div className="message-header">
+                  <span className="sender-name">
+                    {message.sender === 'user' ? 'User' : selectedBotFunctionality}
+                  </span>
+                  <span className="time">{message.time}</span>
+                </div>
+                <div className="message-text">{message.text}</div>
+              </div>
             </div>
           </div>
         ))}
@@ -120,7 +147,7 @@ function Chat({ selectedBotFunctionality }) {
   );
 }
 
-// Helper functions
+// Helper functions remain unchanged
 const countVowels = (text) => {
   const vowels = text.match(/[aeiouAEIOU]/g);
   return vowels ? vowels.length : 0;

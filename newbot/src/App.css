@@ -277,3 +277,85 @@ body.dark-mode .toggle-btn {
   background-color: #ffffff;
   color: rgb(0, 0, 0);
 }
+
+
+
+.message-container {
+  width: 200px; /* Set fixed width for messages */
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 15px;
+}
+
+.message-content {
+  display: flex;
+  align-items: center;
+}
+
+.avatar {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.message-header {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 5px;
+  font-size: 12px;
+}
+
+.sender-name {
+  font-weight: bold;
+}
+
+.time {
+  font-size: 10px;
+  color: gray;
+}
+
+.message-text {
+  background-color: #e6e6e6;
+  padding: 8px;
+  border-radius: 8px;
+  font-size: 14px;
+}
+
+.message-container.user .message-text {
+  background-color: #d0eaff;
+  align-self: flex-start; 
+}
+
+.message-container.bot .message-text {
+  background-color: #e6e6e6;
+  align-self: flex-start;
+}
+
+.footer {
+  display: flex;
+  margin-top: 10px;
+}
+
+.footer input {
+  flex: 1;
+  padding: 8px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.send-btn {
+  margin-left: 10px;
+  padding: 8px 12px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.send-btn:hover {
+  background-color: #0056b3;
+}
