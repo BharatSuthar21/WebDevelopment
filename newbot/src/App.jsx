@@ -2,6 +2,11 @@ import React, { useState } from 'react';
 import Sidebar from './components/Sidebar';
 import Chat from './components/Chat';
 import './App.css';
+import Random from './assets/Images/random.png';
+import Vowel from './assets/Images/Vowel.jpg';
+import Frequent from './assets/Images/frequent.png';
+import Uppercase from './assets/Images/Uppercase.png';
+import Suffel from './assets/Images/shuffle.png';
 
 function App() {
   const [selectedBotFunctionality, setSelectedBotFunctionality] = useState('');
@@ -11,35 +16,35 @@ function App() {
       id: 1,
       name: "RandomBot",
       message: "Perform actions Randomly",
-      imgSrc: "src/assets/Images/random.png",
+      imgSrc: Random,
       functionality: 'RANDOM',
     },
     {
       id: 2,
       name: "VowelBot",
       message: "Counts vowels in the input text.",
-      imgSrc: "src/assets/Images/Vowel.jpg",
+      imgSrc: Vowel,
       functionality: 'COUNT_VOWELS',
     },
     {
       id: 3,
       name: "Most Frequent Letter",
       message: "Returns the most frequent letter",
-      imgSrc: "src/assets/Images/frequent.png",
+      imgSrc: Frequent,
       functionality: 'MOST_FREQUENT_LETTER',
     },
     {
       id: 4,
       name: "Uppercase Bot",
       message: "Converts the input text to uppercase.",
-      imgSrc: "src/assets/Images/Uppercase.png",
+      imgSrc: Uppercase,
       functionality: 'UPPERCASE',
     },
     {
       id: 5,
       name: "ShuffleBot",
       message: "Shuffles the characters in each word of the input text.",
-      imgSrc: "src/assets/Images/shuffle.png",
+      imgSrc: Suffel,
       functionality: 'SHUFFLE_CHARACTERS_IN_WORDS',
     },
   ];

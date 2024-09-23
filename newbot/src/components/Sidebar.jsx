@@ -12,7 +12,7 @@ function Sidebar({ onBotSelect, bots }) {
   return (
     <div className="sidebar">
       <div className="search">
-        <h3>Bharat & Sekhar Bot</h3>
+        <h3>Bharat & Shekhar's Bot</h3>
       </div>
       <div className="contacts">
         {bots.map((bot) => (
