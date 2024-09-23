@@ -39,7 +39,7 @@ body.dark-mode {
   border-right: 1px solid var(--border-light);
   display: flex;
   flex-direction: column;
-  justify-content: space-between; /* Aligns toggle button to the bottom */
+  justify-content: space-between;
 }
 
 body.dark-mode .sidebar {
@@ -151,18 +151,17 @@ body.dark-mode .chat .header {
   flex: 1;
   padding: 20px;
   overflow-y: auto;
-  background-color: var(--background-light);
 }
 
 body.dark-mode .chat .messages {
   background-color: var(--background-dark);
 }
 
-.chat .message {
+/* .chat .message {
   display: flex;
   margin-bottom: 20px;
   position: relative;
-}
+} */
 
 .chat .message .text {
   background-color: var(--message-received-light);
@@ -197,7 +196,7 @@ body.dark-mode .chat .message.sent .text {
 }
 
 body.dark-mode .chat .message .time {
-  color: #ccc;
+  color: white;
 }
 
 .chat .footer {
@@ -317,19 +316,17 @@ body.dark-mode .toggle-btn {
 }
 
 .message-text {
-  background-color: #e6e6e6;
   padding: 8px;
   border-radius: 8px;
   font-size: 14px;
 }
 
 .message-container.user .message-text {
-  background-color: #d0eaff;
   align-self: flex-start; 
 }
 
 .message-container.bot .message-text {
-  background-color: #e6e6e6;
+  
   align-self: flex-start;
 }
 
