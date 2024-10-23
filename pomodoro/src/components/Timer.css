@@ -1,0 +1,36 @@
+.timer-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.progress-ring {
+  position: relative;
+}
+
+.progress-ring__circle {
+  transition: stroke-dashoffset 0.35s;
+  transform: rotate(-90deg);
+  transform-origin: 50% 50%;
+}
+
+.time-display {
+  position: absolute;
+  font-size: 48px;
+  color: white;
+}
+
+.timer-controls {
+  margin-top: 20px;
+}
+
+.start-button {
+  padding: 10px 20px;
+  background-color: #f16e00;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 20px;
+  cursor: pointer;
+}

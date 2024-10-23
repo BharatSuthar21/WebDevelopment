@@ -1,0 +1,19 @@
+.app-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: #2a2a4d;
+  color: white;
+}
+
+.settings-button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: #f16e00;
+  border: none;
+  color: white;
+  border-radius: 10px;
+  cursor: pointer;
+}

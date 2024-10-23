@@ -1,0 +1,20 @@
+.navbar {
+    display: flex;
+    justify-content: space-around;
+    background-color: #1f1f3b;
+    padding: 10px;
+  }
+  
+  button {
+    background: none;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    cursor: pointer;
+  }
+  
+  button.active {
+    background-color: orange;
+    border-radius: 5px;
+  }
+  

@@ -1,0 +1,22 @@
+.navbar {
+  display: flex;
+  justify-content: space-around;
+  background-color: #2a2a4d;
+  padding: 10px;
+  border-radius: 12px;
+  margin-bottom: 20px;
+}
+
+.nav-button {
+  padding: 10px 20px;
+  background-color: #4b4b6e;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.nav-button.active {
+  background-color: #f16e00;
+}
