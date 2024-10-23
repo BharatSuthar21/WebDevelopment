@@ -5,20 +5,20 @@ const Navbar = ({ active, setActive }) => {
   return (
     <nav className="navbar">
       <button
-        className={`nav-button ${active === 'Focus' ? 'active' : ''}`}
-        onClick={() => setActive('Focus')}
+        className={active === 'focus' ? 'active' : ''}
+        onClick={() => setActive('focus')}
       >
         Focus
       </button>
       <button
-        className={`nav-button ${active === 'Short Break' ? 'active' : ''}`}
-        onClick={() => setActive('Short Break')}
+        className={active === 'shortBreak' ? 'active' : ''}
+        onClick={() => setActive('shortBreak')}
       >
         Short Break
       </button>
       <button
-        className={`nav-button ${active === 'Long Break' ? 'active' : ''}`}
-        onClick={() => setActive('Long Break')}
+        className={active === 'longBreak' ? 'active' : ''}
+        onClick={() => setActive('longBreak')}
       >
         Long Break
       </button>

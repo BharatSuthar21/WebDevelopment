@@ -1,48 +1,60 @@
 import React, { useState } from 'react';
 import './SettingsModal.css';
 
-const SettingsModal = ({ timers, handleTimerChange, onClose }) => {
-  const [focusTime, setFocusTime] = useState(timers.focus);
-  const [shortBreakTime, setShortBreakTime] = useState(timers.shortBreak);
-  const [longBreakTime, setLongBreakTime] = useState(timers.longBreak);
+const SettingsModal = ({ timers, onClose, onSave }) => {
+  const [newTimers, setNewTimers] = useState(timers);
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setNewTimers({
+      ...newTimers,
+      [name]: parseInt(value) * 60,
+    });
+  };
 
   const handleSave = () => {
-    handleTimerChange({
-      focus: focusTime,
-      shortBreak: shortBreakTime,
-      longBreak: longBreakTime,
-    });
+    onSave(newTimers);
     onClose();
   };
 
   return (
     <div className="settings-modal">
       <h2>Settings</h2>
-      <label>
-        Focus Timer (minutes):
-        <input
-          type="number"
-          value={focusTime}
-          onChange={(e) => setFocusTime(e.target.value)}
-        />
-      </label>
-      <label>
-        Short Break Timer (minutes):
-        <input
-          type="number"
-          value={shortBreakTime}
-          onChange={(e) => setShortBreakTime(e.target.value)}
-        />
-      </label>
-      <label>
-        Long Break Timer (minutes):
-        <input
-          type="number"
-          value={longBreakTime}
-          onChange={(e) => setLongBreakTime(e.target.value)}
-        />
-      </label>
+      <div>
+        <label>
+          Focus Time:
+          <input
+            type="number"
+            name="focus"
+            value={newTimers.focus / 60}
+            onChange={handleChange}
+          />
+        </label>
+      </div>
+      <div>
+        <label>
+          Short Break Time:
+          <input
+            type="number"
+            name="shortBreak"
+            value={newTimers.shortBreak / 60}
+            onChange={handleChange}
+          />
+        </label>
+      </div>
+      <div>
+        <label>
+          Long Break Time:
+          <input
+            type="number"
+            name="longBreak"
+            value={newTimers.longBreak / 60}
+            onChange={handleChange}
+          />
+        </label>
+      </div>
       <button onClick={handleSave}>Save</button>
+      <button onClick={onClose}>Cancel</button>
     </div>
   );
 };
