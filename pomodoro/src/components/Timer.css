@@ -1,0 +1,20 @@
+.timer-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.progress-circle {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  position: relative;
+}
+
+.timer-display {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 2em;
+}

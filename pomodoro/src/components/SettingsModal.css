@@ -1,0 +1,18 @@
+.settings-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #2b2b3a;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.settings-modal label {
+  display: block;
+  margin-bottom: 10px;
+}
+
+.settings-modal input {
+  margin-left: 10px;
+}
