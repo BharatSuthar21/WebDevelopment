@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './Timer.css';
 
-const Timer = ({ initialTime, isPaused, togglePause, onTimerEnd }) => {
+const Timer = ({ initialTime, isPaused, onTimerEnd }) => {
   const [timeLeft, setTimeLeft] = useState(initialTime);
 
   useEffect(() => {
@@ -11,7 +11,7 @@ const Timer = ({ initialTime, isPaused, togglePause, onTimerEnd }) => {
       timer = setInterval(() => {
         setTimeLeft((prevTime) => {
           if (prevTime <= 1) {
-            onTimerEnd();
+            onTimerEnd(); // Call the end timer function
             return initialTime; // Reset timer for the next phase
           }
           return prevTime - 1;
