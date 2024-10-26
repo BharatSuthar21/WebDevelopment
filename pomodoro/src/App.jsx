@@ -5,9 +5,10 @@ import SettingsModal from './components/SettingsModal';
 import './App.css';
 
 const DEFAULT_TIMERS = {
-  focus: 25 * 60,
-  shortBreak: 5 * 60,
-  longBreak: 15 * 60,
+  focus: 15,
+  shortBreak: 5,
+  focus2: 15,
+  longBreak: 10,
 };
 
 function App() {
@@ -16,33 +17,43 @@ function App() {
   const [isPaused, setIsPaused] = useState(true);
   const [showSettings, setShowSettings] = useState(false);
   const [cycleIndex, setCycleIndex] = useState(0);
+  const [isSoundPlaying, setIsSoundPlaying] = useState(false); // New state
 
   const playSound = () => {
-    const audio = new Audio('/assets/alarm.wav'); 
-    audio.play();
-    setTimeout(() => audio.pause(), 3000); 
+    const audio = new Audio('/assets/alarm.wav');
+    setIsSoundPlaying(true); // Set sound playing to true
+
+    audio.play().then(() => {
+      setTimeout(() => {
+        audio.pause();
+        setIsSoundPlaying(false); // Reset sound playing after sound is complete
+      }, 3000);
+    });
   };
 
-  // Phases in cycle: Focus → Short Break → Focus → Long Break
-  const phases = ['focus', 'shortBreak', 'focus', 'longBreak'];
+  const phases = ['focus', 'shortBreak', 'focus2', 'longBreak'];
 
   const togglePause = () => {
     setIsPaused(!isPaused);
   };
 
-  // Handles end of the current timer phase
   const handleTimerEnd = () => {
     playSound();
-    const nextPhase = (cycleIndex + 1) % phases.length;
-    setCycleIndex(nextPhase);
-    setActivePhase(phases[nextPhase]);
+
+    // Delay phase change until sound finishes
+    setTimeout(() => {
+      const nextPhase = (cycleIndex + 1) % phases.length;
+      setCycleIndex(nextPhase);
+      setActivePhase(phases[nextPhase]);
+    }, 3000); // 3-second delay to allow the sound to complete
   };
 
-  // When manually switching phases
   const switchPhase = (nextPhase) => {
-    setActivePhase(nextPhase);
-    setCycleIndex(phases.indexOf(nextPhase));
-    setIsPaused(true); // Pause the timer on manual switch
+    if (!isSoundPlaying) {
+      setActivePhase(nextPhase);
+      setCycleIndex(phases.indexOf(nextPhase));
+      setIsPaused(true); // Pause the timer on manual switch
+    }
   };
 
   return (
@@ -52,7 +63,7 @@ function App() {
       <Timer
         key={activePhase}
         initialTime={timers[activePhase]}
-        isPaused={isPaused}
+        isPaused={isPaused || isSoundPlaying} // Pause if sound is playing
         togglePause={togglePause}
         onTimerEnd={handleTimerEnd}
       />
