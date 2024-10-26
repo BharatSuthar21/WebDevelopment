@@ -1,18 +1,31 @@
 .navbar {
   display: flex;
-  justify-content: space-around;
-  width: 100%;
-  margin: 20px 0;
+  justify-content: space-around; /* Proper spacing between buttons */
+  background-color: #3e3272; /* Dark purple */
+  border-radius: 25px;
+  padding: 10px 15px;
 }
 
 .navbar button {
-  background-color: #333;
-  color: white;
+  background-color: transparent;
   border: none;
+  color: white;
+  font-size: 16px;
   padding: 10px 20px;
+  border-radius: 25px;
   cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
 .navbar button.active {
-  background-color: orange;
+  background-color: #f2863a; /* Orange for active button */
+  color: white;
+}
+
+.navbar button:focus {
+  outline: none;
+}
+
+.navbar button:hover {
+  background-color: rgba(255, 255, 255, 0.1); /* Subtle hover effect */
 }

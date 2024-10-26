@@ -6,6 +6,7 @@
   background-color: #2b2b3a;
   padding: 20px;
   border-radius: 10px;
+  color: white;
 }
 
 .settings-modal label {
@@ -15,4 +16,24 @@
 
 .settings-modal input {
   margin-left: 10px;
+  padding: 5px;
+}
+
+.settings-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.settings-buttons button {
+  padding: 10px 20px;
+  background-color: #f2863a;
+  border: none;
+  color: white;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.settings-buttons button:hover {
+  background-color: #d27432;
 }
