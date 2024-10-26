@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Navbar from './components/Navbar';
 import Timer from './components/Timer';
 import SettingsModal from './components/SettingsModal';
@@ -15,26 +15,34 @@ function App() {
   const [timers, setTimers] = useState(DEFAULT_TIMERS);
   const [isPaused, setIsPaused] = useState(true);
   const [showSettings, setShowSettings] = useState(false);
+  const [cycleIndex, setCycleIndex] = useState(0);
+
+  const playSound = () => {
+    const audio = new Audio('/assets/alarm.wav'); 
+    audio.play();
+    setTimeout(() => audio.pause(), 3000); 
+  };
+
+  // Phases in cycle: Focus → Short Break → Focus → Long Break
+  const phases = ['focus', 'shortBreak', 'focus', 'longBreak'];
 
   const togglePause = () => {
     setIsPaused(!isPaused);
   };
 
-  const switchPhase = (nextPhase) => {
-    setActivePhase(nextPhase);
+  // Handles end of the current timer phase
+  const handleTimerEnd = () => {
+    playSound();
+    const nextPhase = (cycleIndex + 1) % phases.length;
+    setCycleIndex(nextPhase);
+    setActivePhase(phases[nextPhase]);
   };
 
-  const handleTimerEnd = () => {
-    const audio = new Audio('/assets/alarm.mp3');
-    audio.play();
-
-    if (activePhase === 'focus') {
-      switchPhase('shortBreak');
-    } else if (activePhase === 'shortBreak') {
-      switchPhase('focus');
-    } else if (activePhase === 'longBreak') {
-      switchPhase('focus');
-    }
+  // When manually switching phases
+  const switchPhase = (nextPhase) => {
+    setActivePhase(nextPhase);
+    setCycleIndex(phases.indexOf(nextPhase));
+    setIsPaused(true); // Pause the timer on manual switch
   };
 
   return (
@@ -56,7 +64,10 @@ function App() {
         <SettingsModal
           timers={timers}
           onClose={() => setShowSettings(false)}
-          onSave={setTimers}
+          onSave={(newTimers) => {
+            setTimers(newTimers);
+            setShowSettings(false);
+          }}
         />
       )}
     </div>

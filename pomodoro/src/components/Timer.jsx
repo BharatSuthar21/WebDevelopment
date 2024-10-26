@@ -5,33 +5,40 @@ const Timer = ({ initialTime, isPaused, togglePause, onTimerEnd }) => {
   const [timeLeft, setTimeLeft] = useState(initialTime);
 
   useEffect(() => {
-    if (isPaused) return;
+    let timer = null;
 
-    if (timeLeft === 0) {
-      onTimerEnd();
-      return;
+    if (!isPaused) {
+      timer = setInterval(() => {
+        setTimeLeft((prevTime) => {
+          if (prevTime <= 1) {
+            onTimerEnd();
+            return initialTime; // Reset timer for the next phase
+          }
+          return prevTime - 1;
+        });
+      }, 1000);
     }
 
-    const timerId = setInterval(() => {
-      setTimeLeft((prev) => prev - 1);
-    }, 1000);
+    return () => {
+      clearInterval(timer);
+    };
+  }, [isPaused, initialTime, onTimerEnd]);
 
-    return () => clearInterval(timerId);
-  }, [timeLeft, isPaused, onTimerEnd]);
+  useEffect(() => {
+    setTimeLeft(initialTime);
+  }, [initialTime]);
+
+  const progressPercentage = ((initialTime - timeLeft) / initialTime) * 100;
 
   const formatTime = (seconds) => {
     const mins = Math.floor(seconds / 60);
     const secs = seconds % 60;
-    return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
-  };
-
-  const calculateProgress = () => {
-    return ((initialTime - timeLeft) / initialTime) * 100;
+    return `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
   };
 
   return (
     <div className="timer-container">
-      <div className="progress-circle" style={{ background: `conic-gradient(#ff0000 ${calculateProgress()}%, #333333 0)` }}>
+      <div className="progress-circle" style={{ background: `conic-gradient(#f2863a ${progressPercentage}%, #2e2b72 0%)` }}>
         <div className="timer-display">{formatTime(timeLeft)}</div>
       </div>
     </div>

@@ -3,7 +3,7 @@ import './Navbar.css';
 
 const Navbar = ({ active, setActive }) => {
   return (
-    <nav className="navbar">
+    <div className="navbar">
       <button
         className={active === 'focus' ? 'active' : ''}
         onClick={() => setActive('focus')}
@@ -22,7 +22,7 @@ const Navbar = ({ active, setActive }) => {
       >
         Long Break
       </button>
-    </nav>
+    </div>
   );
 };
 
